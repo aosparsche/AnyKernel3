@@ -36,6 +36,13 @@ patch_vbmeta_flag=auto;
 # import functions/variables and setup patching - see for reference (DO NOT REMOVE)
 . tools/ak3-core.sh;
 
+if [ "$(getprop persist.sys.fuse.passthrough.enable)" != "true" ]; then
+	ui_print "Enabling fuse passthrough..."
+
+	# FUSE Passthrough
+	patch_prop /system/build.prop "persist.sys.fuse.passthrough.enable" "true"
+fi
+
 # boot install
 dump_boot; # use split_boot to skip ramdisk unpack, e.g. for devices with init_boot ramdisk
 
