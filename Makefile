@@ -2,15 +2,15 @@
 NAME ?= AtomX
 CODENAME ?= marsche
 VERSION ?= v1.0
-DATE := $(shell date "+%H%M")
+CUSTOM ?= $(shell date "+%H%M")
 
-ZIP := $(NAME)-$(CODENAME)-$(VERSION)-$(DATE)
+ZIP := $(NAME)-$(CODENAME)-$(VERSION)-$(CUSTOM)
 EXCLUDE := Makefile *.git* *.jar* *placeholder* *.md*
 
 #zipping
 zip: $(ZIP)
 $(ZIP):
-	@echo "Creating ZIP: $(ZIP).zip"
+	@echo "Creating ZIP: $(ZIP)-signed.zip"
 	@zip -r9 "$@.zip" . -q -x $(EXCLUDE)
 	@echo "Signing zip with aosp keys..."
 	@java -jar *.jar* "$@.zip" "$@-signed.zip"
